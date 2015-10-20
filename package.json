@@ -1,0 +1,19 @@
+{
+	"name": "siguan",
+	"version": "0.3.0",
+	"maintainers": [
+	  {
+		"name": "zhangwenshuang",
+		"email": "zhangwenshuang@edaijia-inc.cn"
+	  }
+	],
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-concat":"*",
+		"grunt-contrib-cssmin":"*",
+		"grunt-contrib-uglify":"*",
+		"grunt-contrib-htmlmin ":"*",
+		"grunt-contrib-watch": "~0.6.1",
+		"grunt-contrib-jade": "~0.15.0 "
+	}
+}

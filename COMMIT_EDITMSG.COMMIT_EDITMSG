@@ -1,0 +1,106 @@
+grunt配置测试
+
+# --------------
+# Please enter the commit message for your changes. Everything below
+# this paragraph is ignored, and an empty message aborts the commit.
+# Just close the window to accept your message.
+diff --git a/Gruntfile.js b/Gruntfile.js
+new file mode 100644
+index 0000000..5ad09a4
+--- /dev/null
++++ b/Gruntfile.js
+@@ -0,0 +1,67 @@
++module.exports = function(grunt) {
++	grunt.initConfig({
++		pkg: grunt.file.readJSON('package.json'),
++		uglify: {
++			options: {
++				mangle: {
++					except: ['jQuery', 'Backbone']
++				}
++			},
++			my_target: {
++				files: {
++					'dist/index.<%= pkg.version%>.js': ['js/index.js', "js/common.js"]
++				}
++			}
++		},
++		htmlmin: { // Task
++			dist: { // Target
++				options: { // Target options
++					removeComments: true,
++					collapseWhitespace: true
++				},
++				files: { // Dictionary of files
++					'dist/index.min.html': './index.html', // 'destination': 'source'
++				}
++			},
++			dev: { // Another target
++				files: {
++					'dist/index.min.html': './index.html',
++				}
++			}
++		},
++		concat: {
++			dist: {
++				src: ['js/*.js'],
++				dest: 'dist/<%= pkg.name %>-<%= pkg.version %>.js',
++			},
++		},
++		jade: {
++			compile: {
++				options: {
++					pretty: true
++				},
++				files: [{
++					expand: true,
++					src: "*.jade",
++					dest: "./",
++					cwd: "templates/",
++					ext: '.html'
++				}]
++			}
++		},
++		watch: {
++			main: {
++				files: ["templates/*.jade","templates/common/*.jade"],
++				tasks: ["jade"]
++			}
++		}
++	});
++
++	grunt.loadNpmTasks('grunt-contrib-concat');
++	grunt.loadNpmTasks('grunt-contrib-uglify');
++	grunt.loadNpmTasks('grunt-contrib-htmlmin');
++	grunt.loadNpmTasks("grunt-contrib-watch");
++	grunt.loadNpmTasks("grunt-contrib-jade");
++
++	grunt.registerTask("default", ["watch"]);//"uglify", "htmlmin", "concat", 
++};
+\ No newline at end of file
+diff --git a/package.json b/package.json
+new file mode 100644
+index 0000000..8582d79
+--- /dev/null
++++ b/package.json
+@@ -0,0 +1,19 @@
++{
++	"name": "siguan",
++	"version": "0.3.0",
++	"maintainers": [
++	  {
++		"name": "zhangwenshuang",
++		"email": "zhangwenshuang@edaijia-inc.cn"
++	  }
++	],
++	"devDependencies": {
++		"grunt": "*",
++		"grunt-contrib-concat":"*",
++		"grunt-contrib-cssmin":"*",
++		"grunt-contrib-uglify":"*",
++		"grunt-contrib-htmlmin ":"*",
++		"grunt-contrib-watch": "~0.6.1",
++		"grunt-contrib-jade": "~0.15.0 "
++	}
++}
+\ No newline at end of file
